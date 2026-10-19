@@ -1,0 +1,22 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: base
+      DB_USER: postgres
+      DB_PASSWORD: clave_dev
+  base:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: clave_dev
+    volumes:
+      - datos_base:/var/lib/postgresql/data
+  broker:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+
+volumes:
+  datos_base:
